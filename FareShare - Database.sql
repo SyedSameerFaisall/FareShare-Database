@@ -1,0 +1,374 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10.20
+-- https://www.phpmyadmin.net
+--
+-- Host: mysql8-server.ucl.ac.uk
+-- Generation Time: Apr 08, 2025 at 11:37 PM
+-- Server version: 8.0.40-commercial
+-- PHP Version: 5.3.3
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `AHODGETTS_FareShare`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `BRANCH`
+--
+
+CREATE TABLE IF NOT EXISTS `BRANCH` (
+  `BRANCH_ID` smallint unsigned NOT NULL,
+  `REGION_ID` smallint unsigned NOT NULL,
+  `BRANCH_NAME` varchar(30) NOT NULL,
+  `CO2E_PER_SS_TONNE` decimal(2,2) DEFAULT NULL,
+  PRIMARY KEY (`BRANCH_ID`),
+  KEY `REGION_ID` (`REGION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `BRANCH`
+--
+
+INSERT INTO `BRANCH` (`BRANCH_ID`, `REGION_ID`, `BRANCH_NAME`, `CO2E_PER_SS_TONNE`) VALUES
+(1, 10, 'FareShare London', '0.05'),
+(2, 20, 'FareShare Sussex', '0.04'),
+(3, 30, 'FareShare Plymouth', '0.03'),
+(4, 40, 'FareShare Birmingham', '0.06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FOOD_DISTRIBUTED`
+--
+
+CREATE TABLE IF NOT EXISTS `FOOD_DISTRIBUTED` (
+  `YEAR` smallint unsigned NOT NULL,
+  `BRANCH_ID` smallint unsigned NOT NULL,
+  `CHARITY_ID` smallint unsigned NOT NULL,
+  `TONNES_OF_FOOD` decimal(6,2) DEFAULT NULL,
+  `CO2E_SAVED` decimal(6,2) DEFAULT NULL,
+  PRIMARY KEY (`BRANCH_ID`,`CHARITY_ID`,`YEAR`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `FOOD_DISTRIBUTED`
+--
+
+INSERT INTO `FOOD_DISTRIBUTED` (`YEAR`, `BRANCH_ID`, `CHARITY_ID`, `TONNES_OF_FOOD`, `CO2E_SAVED`) VALUES
+(2021, 1, 1, '1743.38', '8716.90'),
+(2022, 1, 1, '1884.51', '9422.55'),
+(2023, 1, 1, '2059.08', '9999.99'),
+(2024, 1, 1, '2281.26', '9999.99'),
+(2021, 1, 2, '1162.26', '5811.30'),
+(2022, 1, 2, '1256.34', '6281.70'),
+(2023, 1, 2, '1372.72', '6863.60'),
+(2024, 1, 2, '1520.84', '7604.20'),
+(2021, 2, 3, '618.20', '3091.00'),
+(2022, 2, 3, '689.35', '3446.75'),
+(2023, 2, 3, '775.20', '3876.00'),
+(2024, 2, 3, '881.60', '4408.00'),
+(2021, 3, 4, '100.04', '300.12'),
+(2022, 3, 4, '119.00', '357.00'),
+(2023, 3, 4, '140.80', '422.40'),
+(2024, 3, 4, '170.20', '510.60'),
+(2021, 4, 5, '511.68', '2814.24'),
+(2022, 4, 5, '581.40', '3197.70'),
+(2023, 4, 5, '670.56', '3688.08'),
+(2024, 4, 5, '783.84', '4311.12'),
+(2021, 4, 6, '341.12', '1876.16'),
+(2022, 4, 6, '387.60', '2131.80'),
+(2023, 4, 6, '447.04', '2458.72'),
+(2024, 4, 6, '522.56', '2874.08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FOOD_RECEIVED`
+--
+
+CREATE TABLE IF NOT EXISTS `FOOD_RECEIVED` (
+  `YEAR` smallint unsigned NOT NULL,
+  `SUPPLIER_ID` smallint unsigned NOT NULL,
+  `BRANCH_ID` smallint unsigned NOT NULL,
+  `TONNES_OF_FOOD` decimal(6,2) DEFAULT NULL,
+  PRIMARY KEY (`BRANCH_ID`,`SUPPLIER_ID`,`YEAR`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `FOOD_RECEIVED`
+--
+
+INSERT INTO `FOOD_RECEIVED` (`YEAR`, `SUPPLIER_ID`, `BRANCH_ID`, `TONNES_OF_FOOD`) VALUES
+(2021, 1, 1, '982.00'),
+(2022, 1, 1, '1021.00'),
+(2023, 1, 1, '1075.00'),
+(2024, 1, 1, '1140.00'),
+(2021, 2, 1, '875.00'),
+(2022, 2, 1, '915.00'),
+(2023, 2, 1, '965.00'),
+(2024, 2, 1, '1025.00'),
+(2021, 3, 1, '760.00'),
+(2022, 3, 1, '795.00'),
+(2023, 3, 1, '840.00'),
+(2024, 3, 1, '895.00'),
+(2021, 4, 1, '925.00'),
+(2022, 4, 1, '970.00'),
+(2023, 4, 1, '1030.00'),
+(2024, 4, 1, '1095.00'),
+(2021, 1, 2, '210.00'),
+(2022, 1, 2, '228.00'),
+(2023, 1, 2, '245.00'),
+(2024, 1, 2, '265.00'),
+(2021, 2, 2, '185.00'),
+(2022, 2, 2, '195.00'),
+(2023, 2, 2, '210.00'),
+(2024, 2, 2, '230.00'),
+(2021, 3, 2, '165.00'),
+(2022, 3, 2, '178.00'),
+(2023, 3, 2, '195.00'),
+(2024, 3, 2, '215.00'),
+(2021, 4, 2, '195.00'),
+(2022, 4, 2, '210.00'),
+(2023, 4, 2, '230.00'),
+(2024, 4, 2, '250.00'),
+(2021, 1, 3, '35.00'),
+(2022, 1, 3, '40.00'),
+(2023, 1, 3, '45.00'),
+(2024, 1, 3, '52.00'),
+(2021, 2, 3, '30.00'),
+(2022, 2, 3, '35.00'),
+(2023, 2, 3, '40.00'),
+(2024, 2, 3, '46.00'),
+(2021, 3, 3, '25.00'),
+(2022, 3, 3, '28.00'),
+(2023, 3, 3, '32.00'),
+(2024, 3, 3, '38.00'),
+(2021, 4, 3, '32.00'),
+(2022, 4, 3, '37.00'),
+(2023, 4, 3, '43.00'),
+(2024, 4, 3, '49.00'),
+(2021, 1, 4, '290.00'),
+(2022, 1, 4, '320.00'),
+(2023, 1, 4, '355.00'),
+(2024, 1, 4, '395.00'),
+(2021, 2, 4, '255.00'),
+(2022, 2, 4, '280.00'),
+(2023, 2, 4, '310.00'),
+(2024, 2, 4, '345.00'),
+(2021, 3, 4, '220.00'),
+(2022, 3, 4, '240.00'),
+(2023, 3, 4, '270.00'),
+(2024, 3, 4, '305.00'),
+(2021, 4, 4, '275.00'),
+(2022, 4, 4, '300.00'),
+(2023, 4, 4, '335.00'),
+(2024, 4, 4, '375.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FOOD_SECURITY_METRICS`
+--
+
+CREATE TABLE IF NOT EXISTS `FOOD_SECURITY_METRICS` (
+  `REGION_ID` smallint unsigned NOT NULL,
+  `YEAR` int unsigned NOT NULL,
+  `UNDERNOURISHED_POPULATION` int unsigned DEFAULT NULL COMMENT 'TOTAL UNDERNOURISHED PERCENTAGE',
+  `FOOD_INSECURE_POPULATION` int unsigned DEFAULT NULL COMMENT 'TOTAL FOOD INSECURE POPULATION',
+  PRIMARY KEY (`REGION_ID`,`YEAR`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `FOOD_SECURITY_METRICS`
+--
+
+INSERT INTO `FOOD_SECURITY_METRICS` (`REGION_ID`, `YEAR`, `UNDERNOURISHED_POPULATION`, `FOOD_INSECURE_POPULATION`) VALUES
+(10, 2021, 210000, 1050000),
+(10, 2022, 191363, 1020600),
+(10, 2023, 172840, 950620),
+(10, 2024, 158400, 880000),
+(20, 2021, 48000, 240000),
+(20, 2022, 44688, 227500),
+(20, 2023, 41275, 214630),
+(20, 2024, 37026, 193545),
+(30, 2021, 8800, 41800),
+(30, 2022, 7896, 38352),
+(30, 2023, 6984, 34920),
+(30, 2024, 6013, 31265),
+(40, 2021, 100400, 481920),
+(40, 2022, 92025, 450000),
+(40, 2023, 84240, 421200),
+(40, 2024, 74120, 392400);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FOOD_SUPPLIER`
+--
+
+CREATE TABLE IF NOT EXISTS `FOOD_SUPPLIER` (
+  `SUPPLIER_ID` smallint unsigned NOT NULL,
+  `SUPPLIER_NAME` varchar(50) NOT NULL,
+  `CO2E_PER_TONNE` decimal(2,2) DEFAULT NULL,
+  PRIMARY KEY (`SUPPLIER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `FOOD_SUPPLIER`
+--
+
+INSERT INTO `FOOD_SUPPLIER` (`SUPPLIER_ID`, `SUPPLIER_NAME`, `CO2E_PER_TONNE`) VALUES
+(1, 'Tesco', '0.12'),
+(2, 'Sainsbury', '0.10'),
+(3, 'ASDA', '0.15'),
+(4, 'Morrisons', '0.11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LOCAL_CHARITY`
+--
+
+CREATE TABLE IF NOT EXISTS `LOCAL_CHARITY` (
+  `CHARITY_ID` smallint unsigned NOT NULL,
+  `CHARITY_NAME` varchar(50) NOT NULL,
+  `TOTAL_BENEFICIARIES` int unsigned DEFAULT NULL,
+  `MEALS_PROVIDED` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`CHARITY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `LOCAL_CHARITY`
+--
+
+INSERT INTO `LOCAL_CHARITY` (`CHARITY_ID`, `CHARITY_NAME`, `TOTAL_BENEFICIARIES`, `MEALS_PROVIDED`) VALUES
+(1, 'London Food Bank', 850, 25000),
+(2, 'London Homeless Support', 650, 19000),
+(3, 'Sussex Community Kitchen', 800, 25740),
+(4, 'Plymouth Food Aid', 500, 18120),
+(5, 'Birmingham Meal Support', 600, 18200),
+(6, 'Birmingham Community Pantry', 550, 16500);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `POPULATIONSTATS`
+--
+
+CREATE TABLE IF NOT EXISTS `POPULATIONSTATS` (
+  `REGION_ID` smallint unsigned NOT NULL,
+  `YEAR` int unsigned NOT NULL,
+  `TOTAL_POPULATION` int unsigned DEFAULT NULL COMMENT 'TOTAL POPULATION IN THE REGION',
+  PRIMARY KEY (`REGION_ID`,`YEAR`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `POPULATIONSTATS`
+--
+
+INSERT INTO `POPULATIONSTATS` (`REGION_ID`, `YEAR`, `TOTAL_POPULATION`) VALUES
+(10, 2021, 8400000),
+(10, 2022, 8505000),
+(10, 2023, 8642000),
+(10, 2024, 8800000),
+(20, 2021, 1600000),
+(20, 2022, 1625000),
+(20, 2023, 1651000),
+(20, 2024, 1683000),
+(30, 2021, 220000),
+(30, 2022, 225600),
+(30, 2023, 232800),
+(30, 2024, 240500),
+(40, 2021, 2008000),
+(40, 2022, 2045000),
+(40, 2023, 2106000),
+(40, 2024, 2180000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `REGION`
+--
+
+CREATE TABLE IF NOT EXISTS `REGION` (
+  `REGION_ID` smallint unsigned NOT NULL,
+  `REGION_NAME` varchar(255) NOT NULL,
+  `BASELINE_WASTE` float DEFAULT NULL COMMENT 'BASELINE FOOD WASTE IN TONNES',
+  PRIMARY KEY (`REGION_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `REGION`
+--
+
+INSERT INTO `REGION` (`REGION_ID`, `REGION_NAME`, `BASELINE_WASTE`) VALUES
+(10, 'London', 1460000),
+(20, 'Sussex', 164250),
+(30, 'Plymouth', 21900),
+(40, 'Birmingham', 200750);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `BRANCH`
+--
+ALTER TABLE `BRANCH`
+  ADD CONSTRAINT `BRANCH_ibfk_1` FOREIGN KEY (`REGION_ID`) REFERENCES `REGION` (`REGION_ID`),
+  ADD CONSTRAINT `CHK_CO2E_PER_SS_TONNE_POSITIVE` CHECK ((`CO2E_PER_SS_TONNE` > 0));
+
+--
+-- Constraints for table `FOOD_DISTRIBUTED`
+--
+ALTER TABLE `FOOD_DISTRIBUTED`
+  ADD CONSTRAINT `FOOD_DISTRIBUTED_ibfk_1` FOREIGN KEY (`BRANCH_ID`) REFERENCES `BRANCH` (`BRANCH_ID`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `FOOD_DISTRIBUTED_ibfk_2` FOREIGN KEY (`CHARITY_ID`) REFERENCES `LOCAL_CHARITY` (`CHARITY_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `CHK_DISTRIBUTED_TONNES_POSITIVE` CHECK ((`TONNES_OF_FOOD` > 0));
+
+--
+-- Constraints for table `FOOD_RECEIVED`
+--
+ALTER TABLE `FOOD_RECEIVED`
+  ADD CONSTRAINT `FOOD_RECEIVED_ibfk_1` FOREIGN KEY (`BRANCH_ID`) REFERENCES `BRANCH` (`BRANCH_ID`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `FOOD_RECEIVED_ibfk_2` FOREIGN KEY (`SUPPLIER_ID`) REFERENCES `FOOD_SUPPLIER` (`SUPPLIER_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `CHK_RECEIVED_TONNES_POSITIVE` CHECK ((`TONNES_OF_FOOD` > 0));
+
+--
+-- Constraints for table `FOOD_SECURITY_METRICS`
+--
+ALTER TABLE `FOOD_SECURITY_METRICS`
+  ADD CONSTRAINT `FOOD_SECURITY_METRICS_ibfk_1` FOREIGN KEY (`REGION_ID`) REFERENCES `REGION` (`REGION_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `CHK_POPULATIONS_CONSISTENT` CHECK ((`FOOD_INSECURE_POPULATION` >= `UNDERNOURISHED_POPULATION`));
+
+--
+-- Constraints for table `FOOD_SUPPLIER`
+--
+ALTER TABLE `FOOD_SUPPLIER`
+  ADD CONSTRAINT `CHK_CO2E_PER_TONNE_POSITIVE` CHECK ((`CO2E_PER_TONNE` > 0));
+
+--
+-- Constraints for table `LOCAL_CHARITY`
+--
+ALTER TABLE `LOCAL_CHARITY`
+  ADD CONSTRAINT `CHK_MEALS_BENEFICIARIES` CHECK ((`MEALS_PROVIDED` >= `TOTAL_BENEFICIARIES`));
+
+--
+-- Constraints for table `POPULATIONSTATS`
+--
+ALTER TABLE `POPULATIONSTATS`
+  ADD CONSTRAINT `POPULATIONSTATS_ibfk_1` FOREIGN KEY (`REGION_ID`) REFERENCES `REGION` (`REGION_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
