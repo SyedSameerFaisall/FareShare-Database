@@ -22,7 +22,7 @@ This project models a relational database system for **FareShare**, a UK-based c
 
 ---
 
-## 📂 File Descriptions
+## 📂 Contents
 
 | File Name                          | Description                                                                 |
 |-----------------------------------|-----------------------------------------------------------------------------|
