@@ -1,7 +1,5 @@
 # FareShare Database System 🚛🍽️🌍
 
-**UCL INST0001 Database Systems 2024-25 – Group A15**
-
 ## 🌟 Overview
 
 This project models a relational database system for **FareShare**, a UK-based charity dedicated to reducing food waste and combating hunger by redistributing surplus food to those in need. Our solution captures the organization's impact on key UN Sustainable Development Goals (SDGs):
